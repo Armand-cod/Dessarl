@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D.E.S SARL – Djikeng Empire Service</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --navy: #0A1628; --blue: #1B4FD8; --blue-mid: #2C6FEA;
+    --blue-light: #E8EFFD; --blue-pale: #F4F7FE;
+    --white: #FFFFFF; --muted: #5A6A85; --border: #D6E2F8;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Outfit', sans-serif; background: var(--white); color: var(--navy); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 4rem;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-brand { display: flex; flex-direction: column; }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 600; letter-spacing: 0.04em; color: var(--navy); }
+  .nav-sub { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-top: 1px; }
+  .nav-links { display: flex; gap: 2.5rem; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.85rem; letter-spacing: 0.04em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--navy); }
+  .nav-cta { font-size: 0.82rem; background: var(--blue); color: var(--white); padding: 0.6rem 1.5rem; border: none; cursor: pointer; font-family: 'Outfit', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 2px; transition: background 0.2s; }
+  .nav-cta:hover { background: var(--navy); }
+
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 4.5rem; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 6rem 4rem; background: var(--white); }
+  .hero-tag { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-bottom: 1.75rem; }
+  .hero-tag::before { content: ''; display: inline-block; width: 28px; height: 1.5px; background: var(--blue); }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.6rem, 4.5vw, 3.8rem); line-height: 1.12; font-weight: 500; margin-bottom: 1.5rem; color: var(--navy); }
+  .hero-title em { font-style: italic; color: var(--blue); }
+  .hero-desc { font-size: 1rem; color: var(--muted); line-height: 1.8; max-width: 440px; margin-bottom: 2.5rem; font-weight: 300; }
+  .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--blue); color: var(--white); padding: 0.9rem 2.2rem; border: 1.5px solid var(--blue); cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.85rem; letter-spacing: 0.07em; text-transform: uppercase; border-radius: 2px; transition: all 0.25s; }
+  .btn-primary:hover { background: var(--navy); border-color: var(--navy); }
+  .btn-secondary { background: transparent; color: var(--navy); padding: 0.9rem 2.2rem; border: 1.5px solid var(--border); cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.85rem; letter-spacing: 0.07em; text-transform: uppercase; border-radius: 2px; transition: all 0.25s; }
+  .btn-secondary:hover { border-color: var(--blue); color: var(--blue); }
+
+  .hero-right { background: var(--blue-pale); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .hero-circle-big { position: absolute; width: 420px; height: 420px; border-radius: 50%; border: 1.5px solid var(--border); top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  .hero-circle-small { position: absolute; width: 260px; height: 260px; border-radius: 50%; background: var(--blue-light); top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  .hero-center-content { position: relative; z-index: 2; text-align: center; padding: 2rem; }
+  .hero-initials { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 600; color: var(--blue); letter-spacing: 0.05em; line-height: 1; }
+  .hero-initials-sub { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 0.5rem; }
+  .hero-badge { position: absolute; bottom: 3rem; right: 3rem; background: var(--white); border: 1px solid var(--border); padding: 1rem 1.5rem; border-radius: 4px; display: flex; flex-direction: column; gap: 0.2rem; }
+  .badge-num { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; color: var(--blue); line-height: 1; }
+  .badge-label { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .stat-item { padding: 2.5rem 3.5rem; border-right: 1px solid var(--border); }
+  .stat-item:last-child { border-right: none; }
+  .stat-number { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 500; color: var(--blue); margin-bottom: 0.4rem; }
+  .stat-label { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 400; }
+
+  .services { padding: 7rem 4rem; background: var(--blue-pale); }
+  .section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 3.5rem; }
+  .section-eyebrow { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); display: block; margin-bottom: 0.75rem; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 500; max-width: 480px; line-height: 1.2; color: var(--navy); }
+  .section-link { font-size: 0.82rem; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; border-bottom: 1px solid var(--border); padding-bottom: 0.2rem; transition: all 0.2s; white-space: nowrap; }
+  .section-link:hover { color: var(--blue); border-color: var(--blue); }
+
+  .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5px; background: var(--border); }
+  .service-card { background: var(--white); padding: 2.5rem 2.5rem; transition: background 0.2s; }
+  .service-card:hover { background: var(--blue-light); }
+  .service-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 400; color: var(--border); margin-bottom: 1rem; line-height: 1; }
+  .service-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 0.75rem; font-weight: 500; color: var(--navy); }
+  .service-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.75; font-weight: 300; }
+  .service-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+  .service-tag { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.75rem; background: var(--blue-light); color: var(--blue); border-radius: 2px; }
+
+  .engagements { padding: 7rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+  .eng-left p { font-size: 0.95rem; color: var(--muted); line-height: 1.8; font-weight: 300; margin-top: 1.5rem; margin-bottom: 2rem; }
+  .eng-list { display: flex; flex-direction: column; gap: 1rem; }
+  .eng-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1.2rem; border: 1px solid var(--border); border-radius: 2px; background: var(--blue-pale); }
+  .eng-icon { width: 36px; height: 36px; background: var(--blue-light); border-radius: 2px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .eng-icon svg { width: 18px; height: 18px; }
+  .eng-text h4 { font-size: 0.9rem; font-weight: 500; margin-bottom: 0.2rem; color: var(--navy); }
+  .eng-text p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; font-weight: 300; }
+
+  .contact-section { padding: 7rem 4rem; background: var(--navy); color: var(--white); }
+  .contact-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+  .contact-inner .section-eyebrow { color: #6B9EF8; }
+  .contact-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 500; margin-bottom: 1rem; line-height: 1.2; }
+  .contact-desc { color: rgba(255,255,255,0.5); font-size: 0.95rem; font-weight: 300; margin-bottom: 2.5rem; line-height: 1.75; }
+  .contact-form { display: flex; gap: 0; max-width: 460px; margin: 0 auto 2.5rem; border: 1px solid rgba(255,255,255,0.15); }
+  .contact-input { flex: 1; padding: 0.95rem 1.2rem; border: none; background: transparent; font-family: 'Outfit', sans-serif; font-size: 0.9rem; color: var(--white); outline: none; }
+  .contact-input::placeholder { color: rgba(255,255,255,0.3); }
+  .contact-submit { padding: 0.95rem 1.5rem; background: var(--blue); color: var(--white); border: none; cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.2s; white-space: nowrap; }
+  .contact-submit:hover { background: var(--blue-mid); }
+
+  .contact-info { display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; }
+  .info-item { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+  .info-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+  .info-value { font-size: 0.88rem; color: rgba(255,255,255,0.8); }
+  .info-value a { color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s; }
+  .info-value a:hover { color: #6B9EF8; }
+
+  footer { border-top: 1px solid var(--border); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-brand { display: flex; flex-direction: column; }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--navy); }
+  .footer-sub { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 1px; }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a { font-size: 0.78rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--blue); }
+  .footer-copy { font-size: 0.75rem; color: var(--muted); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-left > * { animation: fadeUp 0.65s ease forwards; opacity: 0; }
+  .hero-tag { animation-delay: 0.1s; } .hero-title { animation-delay: 0.22s; }
+  .hero-desc { animation-delay: 0.36s; } .hero-actions { animation-delay: 0.5s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <span class="nav-logo">D.E.S SARL</span>
+    <span class="nav-sub">Djikeng Empire Service</span>
+  </div>
+  <div class="nav-links">
+    <a href="#">Services</a>
+    <a href="#">À propos</a>
+    <a href="#">Engagements</a>
+    <a href="#">Contact</a>
+  </div>
+  <button class="nav-cta">Nous contacter</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <span class="hero-tag">Prestation de service & Immigration — Douala, Cameroun</span>
+    <h1 class="hero-title">L'excellence<br>au service de<br><em>votre ambition.</em></h1>
+    <p class="hero-desc">D.E.S SARL accompagne particuliers et entreprises dans leurs démarches administratives, projets d'immigration et besoins en prestations de service. Une expertise fiable, à votre côté à chaque étape.</p>
+    <div class="hero-actions">
+      <button class="btn-primary">Nos services</button>
+      <button class="btn-secondary">Prendre rendez-vous</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-circle-big"></div>
+    <div class="hero-circle-small"></div>
+    <div class="hero-center-content">
+      <div class="hero-initials">DES</div>
+      <div class="hero-initials-sub">Djikeng Empire Service SARL</div>
+    </div>
+    <div class="hero-badge">
+      <span class="badge-num">100%</span>
+      <span class="badge-label">Engagement client</span>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat-item">
+    <div class="stat-number">10+</div>
+    <div class="stat-label">Années d'expertise</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">500+</div>
+    <div class="stat-label">Dossiers traités</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">98%</div>
+    <div class="stat-label">Taux de satisfaction</div>
+  </div>
+</div>
+
+<section class="services">
+  <div class="section-header">
+    <div>
+      <span class="section-eyebrow">Nos prestations</span>
+      <h2 class="section-title">Deux pôles d'expertise à votre service</h2>
+    </div>
+    <span class="section-link">Nous contacter →</span>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <h3 class="service-title">Prestation de service</h3>
+      <p class="service-desc">Nous offrons un accompagnement complet pour vos besoins professionnels et administratifs. Conseil, gestion de dossiers, coordination de projets et appui opérationnel pour particuliers comme pour entreprises.</p>
+      <div class="service-tags">
+        <span class="service-tag">Conseil</span>
+        <span class="service-tag">Administration</span>
+        <span class="service-tag">Coordination</span>
+        <span class="service-tag">Gestion de projets</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <h3 class="service-title">Immigration</h3>
+      <p class="service-desc">Nous guidons vos projets d'immigration de A à Z : constitution de dossiers, demandes de visa, permis de résidence, regroupement familial et orientation vers les pays de destination. Sérieux et discrétion garantis.</p>
+      <div class="service-tags">
+        <span class="service-tag">Visa & permis</span>
+        <span class="service-tag">Regroupement familial</span>
+        <span class="service-tag">Résidence</span>
+        <span class="service-tag">Orientation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="engagements">
+  <div class="eng-left">
+    <span class="section-eyebrow">Notre philosophie</span>
+    <h2 class="section-title">Pourquoi choisir D.E.S SARL ?</h2>
+    <p>Nous croyons que chaque client mérite un partenaire de confiance, capable d'écouter, d'analyser et d'agir avec rigueur. Que vous soyez un particulier ou une entreprise, notre approche est toujours personnalisée.</p>
+  </div>
+  <div class="eng-list">
+    <div class="eng-item">
+      <div class="eng-icon">
+        <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="#1B4FD8" stroke-width="1.2"/><path d="M5.5 9l2.5 2.5 4.5-4.5" stroke="#1B4FD8" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="eng-text">
+        <h4>Accompagnement personnalisé</h4>
+        <p>Chaque dossier est unique. Nous adaptons notre suivi à votre situation, vos objectifs et votre calendrier.</p>
+      </div>
+    </div>
+    <div class="eng-item">
+      <div class="eng-icon">
+        <svg viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="2" stroke="#1B4FD8" stroke-width="1.2"/><path d="M5 9h8M9 5v8" stroke="#1B4FD8" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="eng-text">
+        <h4>Expertise reconnue</h4>
+        <p>Plus de 10 ans d'expérience dans les prestations de service et l'immigration, avec des centaines de dossiers traités avec succès.</p>
+      </div>
+    </div>
+    <div class="eng-item">
+      <div class="eng-icon">
+        <svg viewBox="0 0 18 18" fill="none"><path d="M9 2L11.5 7H16L12.5 10.5L14 15L9 12L4 15L5.5 10.5L2 7H6.5L9 2Z" stroke="#1B4FD8" stroke-width="1.2" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="eng-text">
+        <h4>Confidentialité & fiabilité</h4>
+        <p>Vos informations personnelles et vos dossiers sont traités avec la plus stricte confidentialité et le plus grand sérieux.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section">
+  <div class="contact-inner">
+    <span class="section-eyebrow">Travaillons ensemble</span>
+    <h2 class="contact-title">Prêt à concrétiser votre projet ?</h2>
+    <p class="contact-desc">Laissez-nous votre adresse e-mail et un conseiller D.E.S SARL vous recontactera sous 24 heures pour étudier votre dossier.</p>
+    <div class="contact-form">
+      <input class="contact-input" type="email" placeholder="Votre adresse e-mail">
+      <button class="contact-submit">Envoyer →</button>
+    </div>
+    <div class="contact-info">
+      <div class="info-item">
+        <span class="info-label">Téléphone</span>
+        <span class="info-value"><a href="tel:+237655219224">+237 655 21 92 24</a></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">E-mail</span>
+        <span class="info-value"><a href="mailto:campuscanada53@gmail.com">campuscanada53@gmail.com</a></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Adresse</span>
+        <span class="info-value">Douala, Cameroun</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">
+    <span class="footer-logo">D.E.S SARL</span>
+    <span class="footer-sub">Djikeng Empire Service</span>
+  </div>
+  <div class="footer-links">
+    <a href="#">Confidentialité</a>
+    <a href="#">Mentions légales</a>
+    <a href="#">Sitemap</a>
+  </div>
+  <span class="footer-copy">© 2025 Djikeng Empire Service SARL — Douala, Cameroun</span>
+</footer>
+
+</body>
+</html>
